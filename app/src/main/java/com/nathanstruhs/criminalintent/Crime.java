@@ -3,10 +3,6 @@ package com.nathanstruhs.criminalintent;
 import java.util.Date;
 import java.util.UUID;
 
-/**
- * Created by nathanstruhs on 10/6/17.
- */
-
 public class Crime {
     private UUID mId;
     private String mTitle;

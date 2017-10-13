@@ -8,13 +8,13 @@ import java.util.UUID;
 
 public class CrimeLab {
     private static CrimeLab sCrimeLab;
-
     private List<Crime> mCrimes;
 
     public static CrimeLab get(Context context) {
         if (sCrimeLab == null) {
             sCrimeLab = new CrimeLab(context);
         }
+
         return sCrimeLab;
     }
 
@@ -38,6 +38,7 @@ public class CrimeLab {
                 return crime;
             }
         }
+
         return null;
     }
 }
