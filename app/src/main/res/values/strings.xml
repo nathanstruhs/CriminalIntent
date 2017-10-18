@@ -4,4 +4,6 @@
     <string name="crime_title_label">Title</string>
     <string name="crime_details_label">Details</string>
     <string name="crime_solved_label">Solved</string>
+    <string name="first_button_text">First</string>
+    <string name="last_button_text">Last</string>
 </resources>
