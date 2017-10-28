@@ -18,4 +18,5 @@
     <string name="send_report">Send crime report via</string>
     <string name="crime_suspect_text">Choose Suspect</string>
     <string name="crime_report_text">Send Crime Report</string>
+    <string name="call_suspect_text">Confront the Offender</string>
 </resources>
