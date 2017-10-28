@@ -120,14 +120,6 @@ public class CrimeFragment extends Fragment {
             }
         });
 
-        mCallSuspectButton = (Button) v.findViewById(R.id.call_suspect);
-        mCallSuspectButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
         final Intent pickContact = new Intent(Intent.ACTION_PICK,
                 ContactsContract.Contacts.CONTENT_URI);
         mSuspectButton = (Button) v.findViewById(R.id.crime_suspect);
@@ -145,6 +137,17 @@ public class CrimeFragment extends Fragment {
                 PackageManager.MATCH_DEFAULT_ONLY) == null) {
             mSuspectButton.setEnabled(false);
         }
+
+        mCallSuspectButton = (Button) v.findViewById(R.id.call_suspect);
+        mCallSuspectButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String number = "7777777777";
+                Uri phone_number = Uri.parse("tel:" + number);
+                Intent callSuspect = new Intent(Intent.ACTION_DIAL, phone_number);
+                startActivity(callSuspect);
+            }
+        });
 
         return v;
     }
