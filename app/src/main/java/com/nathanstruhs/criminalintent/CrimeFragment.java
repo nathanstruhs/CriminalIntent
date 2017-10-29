@@ -142,10 +142,12 @@ public class CrimeFragment extends Fragment {
         mCallSuspectButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                String number = "7777777777";
-                Uri phone_number = Uri.parse("tel:" + number);
-                Intent callSuspect = new Intent(Intent.ACTION_DIAL, phone_number);
-                startActivity(callSuspect);
+//                Uri phone_number = Uri.parse("tel:" + mCrime.getSuspectPhoneNumber());
+//                Intent callSuspect = new Intent(Intent.ACTION_DIAL, phone_number);
+//                startActivity(callSuspect);
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:" + mCrime.getSuspectPhoneNumber()));
+                startActivity(i);
             }
         });
 
@@ -162,28 +164,35 @@ public class CrimeFragment extends Fragment {
             Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mCrime.setDate(date);
             updateDate();
+
         } else if (requestCode == REQUEST_CONTACT && data != null) {
             Uri contactUri = data.getData();
-            // Specify which fields you want your query to return
-            // values for.
+
             String[] queryFields = new String[]{
-                    ContactsContract.Contacts.DISPLAY_NAME
+                    ContactsContract.Contacts.DISPLAY_NAME,
+                    ContactsContract.Contacts._ID
             };
-            // Perform your query - the contactUri is like a "where"
-            // clause here
+
             Cursor c = getActivity().getContentResolver()
                     .query(contactUri, queryFields, null, null, null);
             try {
-                // Double-check that you actually got results
+
                 if (c.getCount() == 0) {
                     return;
                 }
-                // Pull out the first column of the first row of data -
-                // that is your suspect's name.
+
                 c.moveToFirst();
                 String suspect = c.getString(0);
                 mCrime.setSuspect(suspect);
                 mSuspectButton.setText(suspect);
+
+                String id = c.getString(1);
+                c = getActivity().getContentResolver().query(
+                    ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                    ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id, null, null);
+
+                c.moveToFirst();
+                mCrime.setSuspectPhoneNumber(c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
             } finally {
                 c.close();
             }
@@ -214,9 +223,6 @@ public class CrimeFragment extends Fragment {
         return report;
     }
 
-//    private String getContactPhoneNumber() {
-//
-//    }
 }
 
 
